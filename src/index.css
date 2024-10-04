@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ant-menu .ant-menu-item-selected {
+    color: #7a40f2 !important;
+}
+
+.ant-menu .ant-menu-item {
+    color: white;
+}
+
+.ant-layout
+    > .ant-layout-sider
+    > .ant-layout-sider-children
+    > .ant-menu
+    > .ant-menu-item-active {
+    color: white;
+}
