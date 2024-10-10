@@ -1,9 +1,15 @@
-import { Avatar, Button, Layout, Popover } from 'antd'
-import React, { useContext, useState } from 'react'
-import { BellOutlined, MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined } from '@ant-design/icons';
-import { theme } from 'antd';
-import { UserContext } from 'utils/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { Avatar, Button, Layout, message, notification, Popover } from "antd";
+import React, { useContext, useState } from "react";
+import {
+    BellOutlined,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    LogoutOutlined,
+} from "@ant-design/icons";
+import { theme } from "antd";
+import { UserContext } from "utils/UserContext";
+import { useNavigate } from "react-router-dom";
+import { callLogout } from "config/api";
 
 const { Header } = Layout;
 
@@ -13,61 +19,113 @@ const HeaderClient = ({ collapsed, setCollapsed }) => {
     } = theme.useToken();
 
     const navigate = useNavigate();
-    const { user, setUser } = useContext(UserContext)
-    const [openPopoverNotification, setOpenPopoverNotification] = useState(false)
-    const [openPopoverUser, setOpenPopoverUser] = useState(false)
+    const { user, setUser } = useContext(UserContext);
+    const [openPopoverNotification, setOpenPopoverNotification] =
+        useState(false);
+    const [openPopoverUser, setOpenPopoverUser] = useState(false);
 
-    const handleLogout = () => {
-        localStorage.removeItem('user-iot')
-        setUser({})
-        navigate('/login')
-    }
+    const handleLogout = async () => {
+        const res = await callLogout({
+            headers: {
+                Authorization: "Bearer " + user.token,
+            },
+        });
+        if (res?.data) {
+            localStorage.removeItem("user-iot");
+            setUser({});
+            navigate("/login");
+            message.success("Đăng xuất thành công!");
+        } else {
+            notification.error({
+                message: "Có lỗi xảy ra",
+                description:
+                    res.message && Array.isArray(res.message)
+                        ? res.message[0]
+                        : res.message,
+                duration: 5,
+            });
+        }
+    };
 
     return (
         // <div>
         <Header style={{ padding: 0, background: colorBgContainer }}>
-            <div className='flex justify-between'>
+            <div className="flex justify-between">
                 <Button
                     type="text"
-                    icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                    icon={
+                        collapsed ? (
+                            <MenuUnfoldOutlined />
+                        ) : (
+                            <MenuFoldOutlined />
+                        )
+                    }
                     onClick={() => setCollapsed(!collapsed)}
                     style={{
-                        fontSize: '16px',
+                        fontSize: "16px",
                         width: 64,
                         height: 64,
                     }}
                 />
-                <div className='flex items-center gap-[10px] p-[10px] mr-[20px]'>
+                <div className="flex items-center gap-[10px] p-[10px] mr-[20px]">
                     <Popover
                         placement="bottomRight"
-                        content={<div style={{ width: '330px' }}>
-                            <div style={{ fontWeight: 'bold' }}>Notifications</div>
-                            <div style={{ color: 'gray', marginTop: '20px', textAlign: 'center' }}>There are no announcements yet</div>
-                        </div>}
+                        content={
+                            <div style={{ width: "330px" }}>
+                                <div style={{ fontWeight: "bold" }}>
+                                    Notifications
+                                </div>
+                                <div
+                                    style={{
+                                        color: "gray",
+                                        marginTop: "20px",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    There are no announcements yet
+                                </div>
+                            </div>
+                        }
                         trigger="click"
                         open={openPopoverNotification}
                         onOpenChange={(val) => setOpenPopoverNotification(val)}
                     >
-                        <Button type='text' icon={<BellOutlined className={'text-[20px]'} />} ></Button>
+                        <Button
+                            type="text"
+                            icon={<BellOutlined className={"text-[20px]"} />}
+                        ></Button>
                     </Popover>
                     <Popover
                         placement="bottomRight"
-                        content={<div style={{ width: '90px' }}>
-                            <div style={{ fontWeight: 'bold' }}>
-                                <Button onClick={handleLogout} className={'w-full text-left'} type='text' icon={<LogoutOutlined className={'text-[18px]'} />} >
-                                    <span>Logout</span>
-                                </Button>
+                        content={
+                            <div style={{ width: "90px" }}>
+                                <div style={{ fontWeight: "bold" }}>
+                                    <Button
+                                        onClick={handleLogout}
+                                        className={"w-full text-left"}
+                                        type="text"
+                                        icon={
+                                            <LogoutOutlined
+                                                className={"text-[18px]"}
+                                            />
+                                        }
+                                    >
+                                        <span>Logout</span>
+                                    </Button>
+                                </div>
                             </div>
-                        </div>}
+                        }
                         trigger="click"
                         open={openPopoverUser}
                         onOpenChange={(val) => setOpenPopoverUser(val)}
                     >
-                        <div className={'flex items-center'}>
+                        <div className={"flex items-center"}>
                             <Avatar>N</Avatar>
-                            <div className={'ml-[8px]'}>
-                                <p className={'font-bold leading-normal'}>{user.name}</p>
-                                <p className='leading-normal'>{user.accessLevel}</p>
+                            <div className={"ml-[8px]"}>
+                                <p className={"font-bold leading-normal"}>
+                                    {user.name}
+                                </p>
+                                <p className="leading-normal">{user.role}</p>
                             </div>
                         </div>
                     </Popover>
@@ -76,7 +134,7 @@ const HeaderClient = ({ collapsed, setCollapsed }) => {
         </Header>
 
         // </div>
-    )
-}
+    );
+};
 
-export default HeaderClient
+export default HeaderClient;

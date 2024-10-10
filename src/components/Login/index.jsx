@@ -1,12 +1,12 @@
-import { Button, Divider, Form, Input, message, notification } from 'antd';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
-import styles from 'styles/auth.module.scss';
-import { callLogin } from 'config/api';
-import { UserContext } from 'utils/UserContext';
-import _ from 'lodash';
+import { Button, Divider, Form, Input, message, notification } from "antd";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import styles from "styles/auth.module.scss";
+import { callLogin } from "config/api";
+import { UserContext } from "utils/UserContext";
+import _ from "lodash";
 
-const LoginPage = (props) => {
+const Login = (props) => {
     const navigate = useNavigate();
     const [isSubmit, setIsSubmit] = useState(false);
     const { user, setUser } = useContext(UserContext);
@@ -17,27 +17,28 @@ const LoginPage = (props) => {
 
     useEffect(() => {
         if (!_.isEmpty(user)) {
-            navigate('/');
+            navigate("/");
         }
-    }, [user])
+    }, [user]);
 
     const onFinish = async (values) => {
         const { username, password } = values;
         setIsSubmit(true);
-        const res = await callLogin(username, password);
-        setIsSubmit(false);
-        if (res?.data) {
-            localStorage.setItem('user-iot', JSON.stringify(res.data));
-            setUser(res.data)
-            message.success('Đăng nhập tài khoản thành công!');
-            window.location.href = callback ? callback : '/';
-        } else {
+        try {
+            const res = await callLogin(username, password);
+            setIsSubmit(false);
+            localStorage.setItem("user-iot", JSON.stringify(res.data));
+            setUser(res.data);
+            message.success("Đăng nhập tài khoản thành công!");
+            window.location.href = callback ? callback : "/";
+        } catch (error) {
+            console.log("error", error);
+            setIsSubmit(false);
             notification.error({
                 message: "Có lỗi xảy ra",
-                description:
-                    res.message && Array.isArray(res.message) ? res.message[0] : res.message,
-                duration: 5
-            })
+                description: error?.response?.data?.error || error.message,
+                duration: 5,
+            });
         }
     };
 
@@ -47,9 +48,12 @@ const LoginPage = (props) => {
                 <div className={styles.container}>
                     <section className={styles.wrapper}>
                         <div className={styles.heading}>
-                            <h2 className={`${styles.text} ${styles["text-large"]}`}>Đăng Nhập</h2>
+                            <h2
+                                className={`${styles.text} ${styles["text-large"]}`}
+                            >
+                                Đăng Nhập
+                            </h2>
                             <Divider />
-
                         </div>
                         <Form
                             name="basic"
@@ -60,7 +64,13 @@ const LoginPage = (props) => {
                                 labelCol={{ span: 24 }}
                                 label="Username"
                                 name="username"
-                                rules={[{ required: true, message: 'Username không được để trống!' }]}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message:
+                                            "Username không được để trống!",
+                                    },
+                                ]}
                             >
                                 <Input />
                             </Form.Item>
@@ -69,7 +79,13 @@ const LoginPage = (props) => {
                                 labelCol={{ span: 24 }} //whole column
                                 label="Mật khẩu"
                                 name="password"
-                                rules={[{ required: true, message: 'Mật khẩu không được để trống!' }]}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message:
+                                            "Mật khẩu không được để trống!",
+                                    },
+                                ]}
                             >
                                 <Input.Password />
                             </Form.Item>
@@ -77,7 +93,11 @@ const LoginPage = (props) => {
                             <Form.Item
                             // wrapperCol={{ offset: 6, span: 16 }}
                             >
-                                <Button type="primary" htmlType="submit" loading={isSubmit}>
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    loading={isSubmit}
+                                >
                                     Đăng nhập
                                 </Button>
                             </Form.Item>
@@ -86,7 +106,7 @@ const LoginPage = (props) => {
                 </div>
             </main>
         </div>
-    )
-}
+    );
+};
 
-export default LoginPage;
+export default Login;
