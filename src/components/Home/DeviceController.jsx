@@ -1,16 +1,10 @@
 import { message, notification, Select, Switch } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import { CgSmartHomeRefrigerator } from "react-icons/cg";
-import { FaGlassWaterDroplet, FaTemperatureQuarter } from "react-icons/fa6";
-import { IoWaterOutline, IoWaterSharp } from "react-icons/io5";
-import Thermostat from "../../utils/Thermostat";
+import { FaTemperatureQuarter } from "react-icons/fa6";
+import { IoWaterSharp } from "react-icons/io5";
 import { PiFanLight } from "react-icons/pi";
-import { BiDoorOpen } from "react-icons/bi";
-import { HiOutlineLightBulb } from "react-icons/hi";
 import { Slider } from "antd";
-import useGetDevices from "hooks/useGetDevices";
 import useGetRooms from "hooks/useGetRooms";
-import useFindOneRoom from "hooks/useFindOneRoom";
 import { handleGetIconDevice } from "utils/icon";
 import { callUpdateDevice } from "config/api";
 import _ from "lodash";

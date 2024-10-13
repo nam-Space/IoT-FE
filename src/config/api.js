@@ -95,3 +95,20 @@ export const callUpdateRoom = (data, config) => {
 export const callDeleteRoom = (_id, config) => {
     return axios.delete(`${baseUrl}/api/rooms/delete/${_id}`, config)
 }
+
+// cardReaders
+export const callGetCardReader = (config) => {
+    return axios.get(`${baseUrl}/api/cardReaders`, config)
+}
+
+export const callCreateCardReader = (data, config) => {
+    return axios.post(`${baseUrl}/api/cardReaders/create`, { ...data }, config)
+}
+
+export const callUpdateCardReader = (data, config) => {
+    return axios.post(`${baseUrl}/api/cardReaders/update`, { ...data }, config)
+}
+
+export const callDeleteCardReader = (_id, config) => {
+    return axios.delete(`${baseUrl}/api/cardReaders/delete/${_id}`, config)
+}
