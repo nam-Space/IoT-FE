@@ -12,7 +12,7 @@ export const callLogin = (username, password) => {
 };
 
 export const callLogout = (config) => {
-    return axios.post(`${baseUrl}/api/users/logout`, config);
+    return axios.post(`${baseUrl}/api/users/logout`, {}, config);
 };
 
 export const callGetUsers = (config) => {

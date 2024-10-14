@@ -94,7 +94,7 @@ const AccessLog = () => {
             <DataTable
                 search={false}
                 actionRef={tableRef}
-                headerTitle="Danh sách Sensor Log"
+                headerTitle="Danh sách Access Log"
                 rowKey="_id"
                 loading={loading}
                 columns={columns}

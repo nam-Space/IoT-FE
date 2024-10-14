@@ -151,7 +151,7 @@ const DeviceController = () => {
     return (
         <div className="mt-[37px]">
             <div className="flex justify-between">
-                <h1 className="text-[22px] font-bold">Nam's Home</h1>
+                <h1 className="text-[22px] font-bold">{user.name}'s Home</h1>
                 <div className="flex gap-[24px]">
                     <div className="flex items-center text-blue-500">
                         <IoWaterSharp /> 35%{" "}
