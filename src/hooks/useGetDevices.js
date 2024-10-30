@@ -3,14 +3,14 @@ import { callGetDevices } from "config/api"
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "utils/UserContext";
 
-const useGetDevices = () => {
+const useGetDevices = (query = null) => {
     const { user } = useContext(UserContext);
     const [devices, setDevices] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const getAllDevice = async () => {
+    const getAllDevice = async (subQuery = null) => {
         try {
-            const res = await callGetDevices({
+            const res = await callGetDevices(subQuery || query, {
                 headers: {
                     Authorization: 'Bearer ' + user.token
                 }

@@ -190,7 +190,13 @@ const DeviceController = () => {
                                     : "bg-white"
                             } p-[20px] rounded-[25px] cursor-pointer`}
                         >
-                            <div className="text-white w-full flex justify-between font-semibold">
+                            <div
+                                className={`${
+                                    selectedDevice._id === device._id
+                                        ? "text-white"
+                                        : "text-[#7A40F2]"
+                                } w-full flex justify-between font-semibold`}
+                            >
                                 ON
                                 <Switch
                                     value={

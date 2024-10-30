@@ -47,7 +47,7 @@ const SensorLog = () => {
             title: "Humidity",
             dataIndex: "humidity",
             render: (text, record, index, action) => {
-                return <span>{record.temperature}%</span>;
+                return <span>{record.humidity}%</span>;
             },
             hideInSearch: true,
         },

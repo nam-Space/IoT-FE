@@ -3,15 +3,19 @@ import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import useGetAccessLogs from "hooks/useGetAccessLog";
 import useGetSensorLogs from "hooks/useGetSensorLogs";
+import { DEVICE_TYPE } from "constants/device";
+import { SENSOR_TYPE } from "constants/sensor";
 
 const PowerConsumer = () => {
     const [chartDataAccessLog, setChartDataAccessLog] = useState({});
     const [chartDataSensorLog, setChartDataSensorLog] = useState({});
     const [timeRange, setTimeRange] = useState("week"); // Trạng thái thời gian mặc định là tuần
-    const { accessLogs } = useGetAccessLogs();
-    const { sensorLogs } = useGetSensorLogs();
-
-    console.log(timeRange);
+    const { accessLogs, getAllAccessLog } = useGetAccessLogs(
+        `type=${DEVICE_TYPE.FAN}`
+    );
+    const { sensorLogs, getAllSensorLog } = useGetSensorLogs(
+        `type=${SENSOR_TYPE.TEMPERATURE_HUMIDITY}`
+    );
 
     // Lọc dữ liệu theo thời gian (week, month, year)
     const filterLogsByTime = (logs, range) => {
@@ -37,6 +41,15 @@ const PowerConsumer = () => {
 
         return filteredLogs;
     };
+
+    // Tạo interval để cập nhật mỗi 2 giây
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getAllAccessLog(`type=${DEVICE_TYPE.FAN}`);
+            getAllSensorLog(`type=${SENSOR_TYPE.TEMPERATURE_HUMIDITY}`);
+        }, 2000);
+        return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
+    }, []);
 
     // Cập nhật biểu đồ accessLogs khi timeRange thay đổi
     useEffect(() => {

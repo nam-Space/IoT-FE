@@ -3,14 +3,14 @@ import { callGetSensor } from "config/api"
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "utils/UserContext";
 
-const useGetSensors = () => {
+const useGetSensors = (query = null) => {
     const { user } = useContext(UserContext);
     const [sensors, setSensors] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const getAllSensor = async () => {
+    const getAllSensor = async (subQuery = null) => {
         try {
-            const res = await callGetSensor({
+            const res = await callGetSensor(subQuery || query, {
                 headers: {
                     Authorization: 'Bearer ' + user.token
                 }

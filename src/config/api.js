@@ -32,8 +32,8 @@ export const callDeleteUser = (_id, config) => {
 }
 
 // device
-export const callGetDevices = (config) => {
-    return axios.get(`${baseUrl}/api/devices`, config)
+export const callGetDevices = (query, config) => {
+    return axios.get(`${baseUrl}/api/devices${query ? `?${query}` : ''}`, config)
 }
 
 export const callCreateDevice = (data, config) => {
@@ -49,13 +49,17 @@ export const callDeleteDevice = (_id, config) => {
 }
 
 // access log
-export const callGetAccessLogs = (config) => {
-    return axios.get(`${baseUrl}/api/accessLogs`, config)
+export const callGetAccessLogs = (query, config) => {
+    return axios.get(`${baseUrl}/api/accessLogs${query ? `?${query}` : ''}`, config)
 }
 
 // sensor
-export const callGetSensor = (config) => {
-    return axios.get(`${baseUrl}/api/sensors`, config)
+export const callGetSensor = (query, config) => {
+    return axios.get(`${baseUrl}/api/sensors${query ? `?${query}` : ''}`, config)
+}
+
+export const callGetSensorById = (id, config) => {
+    return axios.get(`${baseUrl}/api/sensors/${id}`, config)
 }
 
 export const callCreateSensor = (data, config) => {
@@ -71,8 +75,8 @@ export const callDeleteSensor = (_id, config) => {
 }
 
 // sensor log
-export const callGetSensorLog = (config) => {
-    return axios.get(`${baseUrl}/api/sensorLogs`, config)
+export const callGetSensorLog = (query, config) => {
+    return axios.get(`${baseUrl}/api/sensorLogs${query ? `?${query}` : ''}`, config)
 }
 
 // room
