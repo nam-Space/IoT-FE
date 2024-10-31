@@ -2,11 +2,13 @@ import { notification } from "antd"
 import { callGetSensor } from "config/api"
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "utils/UserContext";
+import useLogoutUser from "./useLogoutUser";
 
 const useGetSensors = (query = null) => {
     const { user } = useContext(UserContext);
     const [sensors, setSensors] = useState([])
     const [loading, setLoading] = useState(true)
+    const { handleLogout } = useLogoutUser()
 
     const getAllSensor = async (subQuery = null) => {
         try {
@@ -36,6 +38,10 @@ const useGetSensors = (query = null) => {
                 description: error.message,
                 duration: 5,
             });
+            // token expired
+            if (error.status === 403) {
+                handleLogout()
+            }
         } finally {
             setLoading(false)
         }

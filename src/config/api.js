@@ -11,8 +11,8 @@ export const callLogin = (username, password) => {
     });
 };
 
-export const callLogout = (config) => {
-    return axios.post(`${baseUrl}/api/users/logout`, {}, config);
+export const callLogout = () => {
+    return axios.post(`${baseUrl}/api/users/logout`);
 };
 
 export const callGetUsers = (config) => {

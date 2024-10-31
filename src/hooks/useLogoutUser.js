@@ -1,24 +1,21 @@
 import { notification } from "antd"
-import { callGetCardReader } from "config/api";
-import { useContext, useEffect, useState } from "react"
+import { callLogout } from "config/api";
+import { useContext, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "utils/UserContext";
-import useLogoutUser from "./useLogoutUser";
 
-const useGetCardReaders = () => {
-    const { user } = useContext(UserContext);
-    const [cardReaders, setCardReaders] = useState([])
+const useLogoutUser = () => {
+    const { setUser } = useContext(UserContext);
     const [loading, setLoading] = useState(true)
-    const { handleLogout } = useLogoutUser()
+    const navigate = useNavigate();
 
-    const getAllCardReader = async () => {
+    const handleLogout = async () => {
         try {
-            const res = await callGetCardReader({
-                headers: {
-                    Authorization: 'Bearer ' + user.token
-                }
-            })
+            const res = await callLogout();
             if (res?.data) {
-                setCardReaders(res.data)
+                localStorage.removeItem("user-iot");
+                setUser({});
+                navigate("/login");
             }
             else {
                 notification.error({
@@ -38,20 +35,12 @@ const useGetCardReaders = () => {
                 description: error.message,
                 duration: 5,
             });
-            // token expired
-            if (error.status === 403) {
-                handleLogout()
-            }
         } finally {
             setLoading(false)
         }
     }
 
-    useEffect(() => {
-        getAllCardReader()
-    }, [])
-
-    return { loading, cardReaders, getAllCardReader }
+    return { loading, handleLogout }
 }
 
-export default useGetCardReaders
+export default useLogoutUser

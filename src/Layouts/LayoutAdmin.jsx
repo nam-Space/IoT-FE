@@ -87,7 +87,9 @@ const LayoutAdmin = ({ children }) => {
             >
                 <div className="demo-logo-vertical" />
                 <div className="flex justify-center my-[40px]">
-                    <HomeOutlined className="text-[35px] text-white" />
+                    <Link to={"/"}>
+                        <HomeOutlined className="text-[35px] text-white" />
+                    </Link>
                 </div>
                 <Menu
                     className="bg-[#7A40F2]"

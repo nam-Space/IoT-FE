@@ -10,6 +10,7 @@ import { theme } from "antd";
 import { UserContext } from "utils/UserContext";
 import { useNavigate } from "react-router-dom";
 import { callLogout } from "config/api";
+import useLogoutUser from "hooks/useLogoutUser";
 
 const { Header } = Layout;
 
@@ -19,33 +20,11 @@ const HeaderClient = ({ collapsed, setCollapsed }) => {
     } = theme.useToken();
 
     const navigate = useNavigate();
+    const { handleLogout } = useLogoutUser();
     const { user, setUser } = useContext(UserContext);
     const [openPopoverNotification, setOpenPopoverNotification] =
         useState(false);
     const [openPopoverUser, setOpenPopoverUser] = useState(false);
-
-    const handleLogout = async () => {
-        const res = await callLogout({
-            headers: {
-                Authorization: "Bearer " + user.token,
-            },
-        });
-        if (res?.data) {
-            localStorage.removeItem("user-iot");
-            setUser({});
-            navigate("/login");
-            message.success("Đăng xuất thành công!");
-        } else {
-            notification.error({
-                message: "Có lỗi xảy ra",
-                description:
-                    res.message && Array.isArray(res.message)
-                        ? res.message[0]
-                        : res.message,
-                duration: 5,
-            });
-        }
-    };
 
     return (
         // <div>
@@ -101,7 +80,12 @@ const HeaderClient = ({ collapsed, setCollapsed }) => {
                             <div style={{ width: "90px" }}>
                                 <div style={{ fontWeight: "bold" }}>
                                     <Button
-                                        onClick={handleLogout}
+                                        onClick={async () => {
+                                            await handleLogout();
+                                            message.success(
+                                                "Đăng xuất thành công!"
+                                            );
+                                        }}
                                         className={"w-full text-left"}
                                         type="text"
                                         icon={

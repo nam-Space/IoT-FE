@@ -3,11 +3,13 @@ import { callGetSensorById } from 'config/api';
 import { callGetRoomById } from 'config/api'
 import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from 'utils/UserContext';
+import useLogoutUser from './useLogoutUser';
 
 const useFindOneSensor = (_id = null) => {
     const { user } = useContext(UserContext);
     const [sensor, setSensor] = useState({})
     const [loading, setLoading] = useState(true)
+    const { handleLogout } = useLogoutUser()
 
     const getSensor = async (subId = null) => {
         try {
@@ -37,6 +39,10 @@ const useFindOneSensor = (_id = null) => {
                 description: error.message,
                 duration: 5,
             });
+            // token expired
+            if (error.status === 403) {
+                handleLogout()
+            }
         } finally {
             setLoading(false)
         }
