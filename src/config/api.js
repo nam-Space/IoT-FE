@@ -4,8 +4,9 @@ const baseUrl = process.env.REACT_APP_BE_URL
 
 
 // user
-export const callLogin = (username, password) => {
+export const callLogin = ({ cardId, username, password }) => {
     return axios.post(`${baseUrl}/api/users/login`, {
+        cardId,
         username,
         password,
     });

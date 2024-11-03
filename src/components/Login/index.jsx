@@ -9,7 +9,7 @@ import _ from "lodash";
 const Login = (props) => {
     const navigate = useNavigate();
     const [isSubmit, setIsSubmit] = useState(false);
-    const { user, setUser } = useContext(UserContext);
+    const { user, setUser, socket } = useContext(UserContext);
 
     let location = useLocation();
     let params = new URLSearchParams(location.search);
@@ -21,11 +21,40 @@ const Login = (props) => {
         }
     }, [user]);
 
+    useEffect(() => {
+        socket?.on("loginToUser", async (message) => {
+            const { cardId } = message;
+            console.log(cardId);
+            loginWithRFID(cardId);
+        });
+        return () => socket?.off("loginToUser");
+    }, [socket]);
+
+    const loginWithRFID = async (cardId) => {
+        setIsSubmit(true);
+        try {
+            const res = await callLogin({ cardId });
+            setIsSubmit(false);
+            localStorage.setItem("user-iot", JSON.stringify(res.data));
+            setUser(res.data);
+            message.success("Đăng nhập tài khoản bằng RFID thành công!");
+            window.location.href = callback ? callback : "/";
+        } catch (error) {
+            console.log("error", error);
+            setIsSubmit(false);
+            notification.error({
+                message: "Có lỗi xảy ra",
+                description: error?.response?.data?.error || error.message,
+                duration: 5,
+            });
+        }
+    };
+
     const onFinish = async (values) => {
         const { username, password } = values;
         setIsSubmit(true);
         try {
-            const res = await callLogin(username, password);
+            const res = await callLogin({ username, password });
             setIsSubmit(false);
             localStorage.setItem("user-iot", JSON.stringify(res.data));
             setUser(res.data);

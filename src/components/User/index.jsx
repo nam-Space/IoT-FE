@@ -60,7 +60,11 @@ const User = () => {
             title: "Card ID",
             dataIndex: "cardId",
             render: (text, record, index, action) => {
-                return <span>{record.cardReader.cardId}</span>;
+                return (
+                    <span>
+                        {record?.cardReader?.cardId || "Chưa được cấp thẻ"}
+                    </span>
+                );
             },
             hideInSearch: true,
         },

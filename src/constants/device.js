@@ -5,4 +5,5 @@ export const DEVICE_TYPE = {
     VENTILATION_FAN: 'VENTILATION_FAN',
     SMOKE_ALARM: 'SMOKE_ALARM',
     WINDOW: 'WINDOW',
+    RFID: 'RFID',
 }
