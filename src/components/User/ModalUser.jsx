@@ -108,7 +108,7 @@ const ModalUser = (props) => {
                     dataInit?._id
                         ? {
                               ...dataInit,
-                              cardId: dataInit.cardReader.cardId,
+                              cardId: dataInit?.cardReader?.cardId,
                           }
                         : {}
                 }
