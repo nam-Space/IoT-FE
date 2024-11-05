@@ -14,6 +14,7 @@ import { SENSOR_TYPE } from "constants/sensor";
 import { callUpdateSensor } from "config/api";
 import { callCreateSensor } from "config/api";
 import { UserContext } from "utils/UserContext";
+import { STATUS } from "constants/status";
 
 const ModalSensor = (props) => {
     const { user } = useContext(UserContext);
@@ -290,6 +291,14 @@ const ModalSensor = (props) => {
                                 style={{ width: "100%" }}
                             />
                         </ProForm.Item>
+                    </Col>
+                    <Col lg={12} md={12} sm={24} xs={24}>
+                        <ProFormSelect
+                            name="status"
+                            label="Status"
+                            valueEnum={STATUS}
+                            placeholder="Please select a status"
+                        />
                     </Col>
                 </Row>
             </ModalForm>

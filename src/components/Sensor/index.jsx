@@ -8,6 +8,8 @@ import ModalSensor from "./ModalSensor";
 import useGetSensors from "hooks/useGetSensors";
 import { callDeleteSensor } from "config/api";
 import { UserContext } from "utils/UserContext";
+import { STATUS } from "constants/status";
+import { SENSOR_TYPE } from "constants/sensor";
 
 const Sensor = () => {
     const tableRef = useRef();
@@ -64,7 +66,11 @@ const Sensor = () => {
             title: "Temperature",
             dataIndex: "temperature",
             render: (text, record, index, action) => {
-                return <span>{record.temperature}°C</span>;
+                return (
+                    <span>
+                        {record.temperature ? `${record.temperature}°C` : ""}
+                    </span>
+                );
             },
             hideInSearch: true,
         },
@@ -72,7 +78,26 @@ const Sensor = () => {
             title: "Humidity",
             dataIndex: "humidity",
             render: (text, record, index, action) => {
-                return <span>{record.temperature}%</span>;
+                return (
+                    <span>{record.humidity ? `${record.humidity}%` : ""}</span>
+                );
+            },
+            hideInSearch: true,
+        },
+        {
+            title: "Status",
+            dataIndex: "status",
+            render: (text, record, index, action) => {
+                return (
+                    <span>
+                        {record.status
+                            ? record.status === STATUS.ON &&
+                              record.type === SENSOR_TYPE.INFRARED
+                                ? "Có người"
+                                : "Chưa có người"
+                            : ""}
+                    </span>
+                );
             },
             hideInSearch: true,
         },

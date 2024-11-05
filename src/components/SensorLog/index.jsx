@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import DataTable from "utils/DataTable";
 import useGetSensorLogs from "hooks/useGetSensorLogs";
 import dayjs from "dayjs";
+import { STATUS } from "constants/status";
+import { SENSOR_TYPE } from "constants/sensor";
 
 const SensorLog = () => {
     const tableRef = useRef();
@@ -39,7 +41,11 @@ const SensorLog = () => {
             title: "Temperature",
             dataIndex: "temperature",
             render: (text, record, index, action) => {
-                return <span>{record.temperature}°C</span>;
+                return (
+                    <span>
+                        {record.temperature ? `${record.temperature}°C` : ""}
+                    </span>
+                );
             },
             hideInSearch: true,
         },
@@ -47,7 +53,9 @@ const SensorLog = () => {
             title: "Humidity",
             dataIndex: "humidity",
             render: (text, record, index, action) => {
-                return <span>{record.humidity}%</span>;
+                return (
+                    <span>{record.humidity ? `${record.humidity}%` : ""}</span>
+                );
             },
             hideInSearch: true,
         },
@@ -56,6 +64,23 @@ const SensorLog = () => {
             dataIndex: "location",
             render: (text, record, index, action) => {
                 return <span>{record.sensor.location}</span>;
+            },
+            hideInSearch: true,
+        },
+        {
+            title: "Status",
+            dataIndex: "status",
+            render: (text, record, index, action) => {
+                return (
+                    <span>
+                        {record.status
+                            ? record.status === STATUS.ON &&
+                              record.sensor.type === SENSOR_TYPE.INFRARED
+                                ? "Có người"
+                                : "Chưa có người"
+                            : ""}
+                    </span>
+                );
             },
             hideInSearch: true,
         },
