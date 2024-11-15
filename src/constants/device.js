@@ -6,4 +6,5 @@ export const DEVICE_TYPE = {
     SMOKE_ALARM: 'SMOKE_ALARM',
     WINDOW: 'WINDOW',
     RFID: 'RFID',
+    RAIN_COVER: 'RAIN_COVER',
 }

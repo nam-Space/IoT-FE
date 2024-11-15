@@ -10,6 +10,7 @@ import CardReaderPage from "pages/CardReaderPage";
 import RoomPage from "pages/RoomPage";
 import AccessLogPage from "pages/AccessLogPage";
 import SensorLogPage from "pages/SensorLogPage";
+import CardReaderLogPage from "pages/CardReaderLogPage";
 
 function App() {
 
@@ -43,6 +44,9 @@ function App() {
       </ProtectedRoute>} />
       <Route path="/sensor-log" element={<ProtectedRoute>
         <SensorLogPage />
+      </ProtectedRoute>} />
+      <Route path="/card-reader-log" element={<ProtectedRoute>
+        <CardReaderLogPage />
       </ProtectedRoute>} />
     </Routes>
   )

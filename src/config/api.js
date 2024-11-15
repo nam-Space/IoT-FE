@@ -117,3 +117,8 @@ export const callUpdateCardReader = (data, config) => {
 export const callDeleteCardReader = (_id, config) => {
     return axios.delete(`${baseUrl}/api/cardReaders/delete/${_id}`, config)
 }
+
+// cardReaderLogs
+export const callGetCardReaderLogs = (query, config) => {
+    return axios.get(`${baseUrl}/api/cardReaderLogs${query ? `?${query}` : ''}`, config)
+}

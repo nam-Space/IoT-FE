@@ -6,7 +6,7 @@ import { FaRegQuestionCircle } from "react-icons/fa";
 import { BsFan } from "react-icons/bs";
 import { RiAlarmWarningFill } from "react-icons/ri";
 import { MdOutlineWindow } from "react-icons/md";
-import { FaIdCard } from "react-icons/fa6";
+import { FaCloudRain, FaIdCard } from "react-icons/fa6";
 
 export const handleGetIconDevice = (deviceName, active) => {
     switch (deviceName) {
@@ -61,6 +61,14 @@ export const handleGetIconDevice = (deviceName, active) => {
         case DEVICE_TYPE.RFID:
             return (
                 <FaIdCard
+                    className={`text-[34px] mt-[10px] ${
+                        active ? "text-white" : "text-[#7A40F2]"
+                    } `}
+                />
+            );
+        case DEVICE_TYPE.RAIN_COVER:
+            return (
+                <FaCloudRain
                     className={`text-[34px] mt-[10px] ${
                         active ? "text-white" : "text-[#7A40F2]"
                     } `}

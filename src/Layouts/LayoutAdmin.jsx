@@ -14,6 +14,7 @@ import { FaAddressCard } from "react-icons/fa6";
 import { IoBedOutline } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import { PiNewspaperClipping } from "react-icons/pi";
+import { BsCardChecklist } from "react-icons/bs";
 
 const { Sider, Content } = Layout;
 
@@ -68,6 +69,11 @@ const LayoutAdmin = ({ children }) => {
                 key: "/sensor-log",
                 icon: <PiNewspaperClipping />,
                 label: <Link to="/sensor-log">Sensor Log</Link>,
+            },
+            {
+                key: "/card-reader-log",
+                icon: <BsCardChecklist />,
+                label: <Link to="/card-reader-log">Card Reader Log</Link>,
             },
         ];
         setMenuItems(full);

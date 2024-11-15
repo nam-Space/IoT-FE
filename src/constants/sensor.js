@@ -4,4 +4,5 @@ export const SENSOR_TYPE = {
     POSITION: 'POSITION',
     IMAGE: 'IMAGE',
     RADIATION: 'RADIATION',
+    RAIN: 'RAIN',
 }
