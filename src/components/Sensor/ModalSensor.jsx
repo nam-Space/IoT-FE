@@ -66,7 +66,8 @@ const ModalSensor = (props) => {
     }, [dataInit]);
 
     const submitForm = async (valuesForm) => {
-        const { name, type, tempature, humidity, location } = valuesForm;
+        const { name, type, tempature, humidity, location, status } =
+            valuesForm;
 
         try {
             if (dataInit?._id) {
@@ -80,6 +81,7 @@ const ModalSensor = (props) => {
                     location,
                     roomId: room.value,
                     deviceId: device.value,
+                    status,
                 };
 
                 const res = await callUpdateSensor(sensor, {
@@ -100,6 +102,7 @@ const ModalSensor = (props) => {
                     location,
                     roomId: room.value,
                     deviceId: device.value,
+                    status,
                 };
                 const res = await callCreateSensor(sensor, {
                     headers: {
@@ -293,11 +296,16 @@ const ModalSensor = (props) => {
                         </ProForm.Item>
                     </Col>
                     <Col lg={12} md={12} sm={24} xs={24}>
-                        <ProFormSelect
+                        {/* <ProFormSelect
                             name="status"
                             label="Status"
                             valueEnum={STATUS}
                             placeholder="Please select a status"
+                        /> */}
+                        <ProFormText
+                            label="Status"
+                            name="status"
+                            placeholder="Nhập status"
                         />
                     </Col>
                 </Row>

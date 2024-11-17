@@ -10,7 +10,7 @@ import { IoMdRainy } from "react-icons/io";
 
 const Banner = () => {
     const { user } = useContext(UserContext);
-    const { sensor, getSensor } = useFindOneSensor("6705658925b1fed0c08982a6");
+    const { sensor, getSensor } = useFindOneSensor("672c889005272b29688305b2");
 
     const isNight = () => {
         const currentHour = new Date().getHours();
@@ -19,7 +19,7 @@ const Banner = () => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            getSensor("6705658925b1fed0c08982a6");
+            getSensor("672c889005272b29688305b2");
         }, 2000);
         return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
     }, []);

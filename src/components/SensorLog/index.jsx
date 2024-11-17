@@ -71,16 +71,7 @@ const SensorLog = () => {
             title: "Status",
             dataIndex: "status",
             render: (text, record, index, action) => {
-                return (
-                    <span>
-                        {record.status
-                            ? record.status === STATUS.ON &&
-                              record.sensor.type === SENSOR_TYPE.INFRARED
-                                ? "Có người"
-                                : "Chưa có người"
-                            : ""}
-                    </span>
-                );
+                return <span>{record.status}</span>;
             },
             hideInSearch: true,
         },

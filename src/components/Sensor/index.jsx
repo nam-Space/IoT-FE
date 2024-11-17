@@ -88,19 +88,7 @@ const Sensor = () => {
             title: "Status",
             dataIndex: "status",
             render: (text, record, index, action) => {
-                return (
-                    <span>
-                        {record.status
-                            ? record.status === STATUS.ON
-                                ? record.type === SENSOR_TYPE.INFRARED
-                                    ? "Có người"
-                                    : "Chưa có người"
-                                : record.type === SENSOR_TYPE.RAIN
-                                ? "Có mưa"
-                                : "Chưa có mưa"
-                            : ""}
-                    </span>
-                );
+                return <span>{record.status}</span>;
             },
             hideInSearch: true,
         },
