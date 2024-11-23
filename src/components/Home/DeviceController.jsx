@@ -1,5 +1,5 @@
 import { message, notification, Select, Switch } from "antd";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { FaTemperatureQuarter } from "react-icons/fa6";
 import { IoWaterSharp } from "react-icons/io5";
 import { PiFanLight } from "react-icons/pi";
@@ -245,74 +245,6 @@ const DeviceController = () => {
                             </div>
                         </div>
                     ))}
-                {/* <div className="flex flex-col items-start bg-white p-[20px] rounded-[25px]">
-                    <div className="w-full flex justify-between font-semibold">
-                        AUTO
-                        <Switch
-                            defaultChecked
-                            onChange={(val) => console.log(val)}
-                        />
-                    </div>
-                    <FaGlassWaterDroplet className="text-[34px] mt-[10px] text-[#7A40F2]" />
-                    <div className="text-[#7A40F2] mt-[10px] font-semibold">
-                        Water
-                    </div>
-                </div>
-                <div className="flex flex-col items-start bg-[#7A40F2] p-[20px] rounded-[25px]">
-                    <div className="text-white w-full flex justify-between font-semibold">
-                        ON
-                        <Switch
-                            defaultChecked
-                            onChange={(val) => console.log(val)}
-                        />
-                    </div>
-                    <div className="text-white w-full flex justify-between font-semibold mt-[10px]">
-                        AUTO
-                        <Switch
-                            disabled={true}
-                            checked={false}
-                            onChange={(val) => console.log(val)}
-                        />
-                    </div>
-                    <PiFanLight className="text-[34px] mt-[10px] text-white" />
-                    <div className="text-white mt-[10px] font-semibold">
-                        Fan
-                    </div>
-                </div>
-                <div className="flex flex-col items-start bg-white p-[20px] rounded-[25px]">
-                    <div className="w-full flex justify-between font-semibold">
-                        OPEN
-                        <Switch
-                            defaultChecked
-                            onChange={(val) => console.log(val)}
-                        />
-                    </div>
-                    <div className="w-full flex justify-between font-semibold mt-[10px]">
-                        AUTO
-                        <Switch
-                            disabled={true}
-                            checked={false}
-                            onChange={(val) => console.log(val)}
-                        />
-                    </div>
-                    <BiDoorOpen className="text-[34px] mt-[10px] text-[#7A40F2]" />
-                    <div className="text-[#7A40F2] mt-[10px] font-semibold">
-                        Door
-                    </div>
-                </div>
-                <div className="flex flex-col items-start bg-white p-[20px] rounded-[25px]">
-                    <div className="w-full flex justify-between font-semibold">
-                        ON
-                        <Switch
-                            defaultChecked
-                            onChange={(val) => console.log(val)}
-                        />
-                    </div>
-                    <HiOutlineLightBulb className="text-[34px] mt-[10px] text-[#7A40F2]" />
-                    <div className="text-[#7A40F2] mt-[10px] font-semibold">
-                        Light
-                    </div>
-                </div> */}
             </div>
 
             {selectedDevice.type === DEVICE_TYPE.FAN && (

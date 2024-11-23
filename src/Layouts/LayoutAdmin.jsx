@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-    HomeOutlined,
-} from "@ant-design/icons";
+import React, { useContext, useEffect, useState } from "react";
+import { UserOutlined, HomeOutlined } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import HeaderClient from "../components/HeaderClient";
 import { IoAppsSharp, IoNewspaperOutline } from "react-icons/io5";
@@ -15,6 +10,8 @@ import { IoBedOutline } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import { PiNewspaperClipping } from "react-icons/pi";
 import { BsCardChecklist } from "react-icons/bs";
+import { toast } from "react-toastify";
+import { UserContext } from "utils/UserContext";
 
 const { Sider, Content } = Layout;
 
@@ -22,11 +19,45 @@ const LayoutAdmin = ({ children }) => {
     const location = useLocation();
     const [collapsed, setCollapsed] = useState(false);
     const {
-        token: { colorBgContainer, borderRadiusLG },
+        token: { borderRadiusLG },
     } = theme.useToken();
 
     const [menuItems, setMenuItems] = useState([]);
     const [activeMenu, setActiveMenu] = useState("/");
+
+    const { socket } = useContext(UserContext);
+
+    useEffect(() => {
+        socket?.on("esp-status", async (message) => {
+            const { connected, room: roomConnected } = message;
+            if (connected) {
+                for (const [roomKey, devices] of Object.entries(
+                    roomConnected
+                )) {
+                    const devicesConnected = devices.devices.join(", ");
+                    toast.success(
+                        `Các thiết bị ${devicesConnected} phòng ${roomKey} đã kết nối`,
+                        {
+                            position: "bottom-right",
+                        }
+                    );
+                }
+            } else {
+                for (const [roomKey, devices] of Object.entries(
+                    roomConnected
+                )) {
+                    const devicesConnected = devices.devices.join(", ");
+                    toast.error(
+                        `Các thiết bị ${devicesConnected} phòng ${roomKey} mất kết nối`,
+                        {
+                            position: "bottom-right",
+                        }
+                    );
+                }
+            }
+        });
+        return () => socket?.off("esp-status");
+    }, [socket]);
 
     useEffect(() => {
         const full = [
