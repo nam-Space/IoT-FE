@@ -5,12 +5,12 @@ import Member from "./Member";
 import PowerConsumer from "./PowerConsumer";
 
 const Home = () => {
-  return (
-    <div className="w-full">
-      <Banner />
-      <DeviceController />
-    </div>
-  );
+    return (
+        <div className="w-full">
+            <Banner />
+            <DeviceController />
+        </div>
+    );
 };
 
 export default Home;

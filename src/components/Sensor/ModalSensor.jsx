@@ -66,7 +66,7 @@ const ModalSensor = (props) => {
     }, [dataInit]);
 
     const submitForm = async (valuesForm) => {
-        const { name, type, tempature, humidity, location, status } =
+        const { name, type, temperature, humidity, location, status } =
             valuesForm;
 
         try {
@@ -76,7 +76,7 @@ const ModalSensor = (props) => {
                     _id: dataInit._id,
                     name,
                     type,
-                    tempature,
+                    temperature,
                     humidity,
                     location,
                     roomId: room.value,
@@ -97,7 +97,7 @@ const ModalSensor = (props) => {
                 const sensor = {
                     name,
                     type,
-                    tempature,
+                    temperature,
                     humidity,
                     location,
                     roomId: room.value,
