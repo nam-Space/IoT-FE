@@ -18,14 +18,14 @@ const AccessLog = () => {
       },
       hideInSearch: true,
     },
-    {
-      title: "Performance",
-      dataIndex: "performance",
-      render: (text, record, index, action) => {
-        return <span>{record?.performance}%</span>;
-      },
-      hideInSearch: true,
-    },
+    // {
+    //   title: "Performance",
+    //   dataIndex: "performance",
+    //   render: (text, record, index, action) => {
+    //     return <span>{record?.performance}%</span>;
+    //   },
+    //   hideInSearch: true,
+    // },
 
     {
       title: "Status",
@@ -35,14 +35,14 @@ const AccessLog = () => {
       },
       hideInSearch: true,
     },
-    {
-      title: "User",
-      dataIndex: "user",
-      render: (text, record, index, action) => {
-        return <span>{record?.user?.name}</span>;
-      },
-      hideInSearch: true,
-    },
+    // {
+    //   title: "User",
+    //   dataIndex: "user",
+    //   render: (text, record, index, action) => {
+    //     return <span>{record?.user?.name}</span>;
+    //   },
+    //   hideInSearch: true,
+    // },
     {
       title: "Device Name",
       dataIndex: "device",
