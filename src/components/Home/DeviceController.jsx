@@ -19,6 +19,7 @@ const DeviceController = () => {
   const { user } = useContext(UserContext);
   const { rooms, getAllRoom } = useGetRooms();
   const [status, setStatus] = useState(true);
+  const [selectedRoom, setSelectedRoom] = useState("");
   const [room, setRoom] = useState({
     label: "",
     value: "",
@@ -90,6 +91,12 @@ const DeviceController = () => {
       value: roomData._id,
       ...roomData,
     });
+    if (roomData.roomName === "Kitchen Room") {
+      setSelectedRoom("RAIN");
+    } else if (roomData.roomName === "Living Room") {
+      setSelectedRoom("AIR");
+    }
+    console.log(selectedRoom);
     setSelectedDevice({
       ...roomData.devices[0],
     });
@@ -358,7 +365,7 @@ const DeviceController = () => {
                 </div> */}
       </div>
       <div className="flex-1">
-        <PowerConsumer />
+        <PowerConsumer selectedRoom={selectedRoom} />
       </div>
     </div>
   );

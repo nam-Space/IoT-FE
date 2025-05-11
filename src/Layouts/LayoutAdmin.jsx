@@ -82,11 +82,11 @@ const LayoutAdmin = ({ children }) => {
         key: "/sensor",
         label: <Link to="/sensor">Sensor</Link>,
       },
-      {
-        key: "/card-reader",
-        icon: <FaAddressCard />,
-        label: <Link to="/card-reader">Card Reader</Link>,
-      },
+      // {
+      //   key: "/card-reader",
+      //   icon: <FaAddressCard />,
+      //   label: <Link to="/card-reader">Card Reader</Link>,
+      // },
       {
         key: "/access-log",
         icon: <IoNewspaperOutline />,
@@ -97,11 +97,11 @@ const LayoutAdmin = ({ children }) => {
         icon: <PiNewspaperClipping />,
         label: <Link to="/sensor-log">Sensor Log</Link>,
       },
-      {
-        key: "/card-reader-log",
-        icon: <BsCardChecklist />,
-        label: <Link to="/card-reader-log">Card Reader Log</Link>,
-      },
+      // {
+      //   key: "/card-reader-log",
+      //   icon: <BsCardChecklist />,
+      //   label: <Link to="/card-reader-log">Card Reader Log</Link>,
+      // },
     ];
     setMenuItems(full);
   }, []);

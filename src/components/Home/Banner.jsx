@@ -10,7 +10,7 @@ import { IoMdRainy } from "react-icons/io";
 
 const Banner = () => {
   const { user } = useContext(UserContext);
-  const { sensor, getSensor } = useFindOneSensor("67de69249ae656523a7a9786");
+  const { sensor, getSensor } = useFindOneSensor("67de6439f2a7b5e777bc9937");
 
   const isNight = () => {
     const currentHour = new Date().getHours();
@@ -19,7 +19,7 @@ const Banner = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      getSensor("67de69249ae656523a7a9786");
+      getSensor("67de6439f2a7b5e777bc9937");
     }, 2000);
     return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
   }, []);
@@ -27,42 +27,41 @@ const Banner = () => {
   return (
     <div className="flex p-[25px] rounded-[28px] justify-between bg-[#FFECC8]">
       <div>
-        <h1 className="font-bold text-[30px] ">Hello, {user.name}</h1>
-        <p>
-          Welcome Home! The air quality is good & fresh you can go out today
-        </p>
-        <div className="mt-[20px] flex items-center">
+        <h1 className="font-bold text-[30px]">Hello, {user.name}</h1>
+        <p>Welcome Home! Let's check the air quality around you.</p>
+
+        <div className="mt-[20px] flex items-center gap-[15px]">
           <FaTemperatureQuarter className="text-[30px]" />
-          <div className="flex items-center gap-[10px]">
-            <p className="text-[30px]">{sensor.temperature}°C</p>
-            <p className="text-[20px]">Outdoor temperature</p>
+          <div>
+            <p className="text-[20px] font-semibold">CO₂ Level</p>
+            <p className="text-[30px]">{sensor.CO2} ppm</p>
           </div>
         </div>
+
         <div className="mt-[20px] flex items-center gap-[10px]">
           {isNight() ? (
             <MdOutlineNightsStay className="text-[30px]" />
           ) : (
             <MdOutlineWbSunny className="text-[30px]" />
           )}
-          <div className="flex items-center gap-[10px]">
-            <p className="text-[20px]">
-              {isNight() ? "Night Sky and stars" : "Sunny Weather and blue sky"}
-            </p>
-          </div>
+          <p className="text-[20px]">
+            {isNight() ? "Night Sky and stars" : "Sunny Weather and blue sky"}
+          </p>
         </div>
+
         {sensor.humidity >= 85 && (
           <div className="mt-[20px] flex items-center gap-[10px]">
             <IoMdRainy className="text-[30px]" />
-            <div className="flex items-center gap-[10px]">
-              <p className="text-[20px]">Rainy Weather</p>
-            </div>
+            <p className="text-[20px]">Rainy Weather</p>
           </div>
         )}
       </div>
+
       <img
         height={200}
         width={200}
         src={sensor.humidity >= 85 ? rainImg : isNight() ? nightImg : sunnyImg}
+        alt="Weather Illustration"
       />
     </div>
   );
